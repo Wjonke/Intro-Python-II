@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -25,22 +26,37 @@ earlier adventurers. The only exit is to the south."""),
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
+
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
+
 room['overlook'].s_to = room['foyer']
+
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
+
 room['treasure'].s_to = room['narrow']
 
+
+'''
+
+***MAP***
+                  <------> Narrow <----> Treasure Room!!!??? :(
+                 |
+                 V  
+outside <----> Foyer <-----> Overlook(deadend)
+
+'''
 #
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
-
+## Make a new player object that is currently in the 'outside' room.
+player = Player(input("Please enter your name: "), room['outside'])
+print(player.current_room)
 # Write a loop that:
-#
+#REPL
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
@@ -49,3 +65,14 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+valid_directions = ("North", "South", "East", "West")
+
+while True:
+    cmd = input("\nWhat direction will you go? ~~~> ")
+    if cmd == "q":
+        print("Goodbye!")
+        exit(0)
+    elif cmd in valid_directions:
+        player.travel(cmd)
+    else:
+        print("Please enter a valid Direction Command")
