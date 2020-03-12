@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 player = "*"
 room = "*"
+food = "*"
+item = "*"
+egg = "*"
 
 [dev-packages]
 
