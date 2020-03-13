@@ -1,5 +1,5 @@
 # Write a class to hold player information, e.g. what room they are in
-from item import Food, Egg
+from src.item import Food
 # currently.
 class Player:
     def __init__(self, name, current_room):
@@ -22,7 +22,7 @@ class Player:
 
     def eat(self, food_item):
         if not isinstance(food_item, Food):
-            print(f"You cannot eat {food_item.name}")
+            print(f"You dont have {food_item.name}")
         else:
             self.strength += food_item.calories
             print(f"You have eaten {food_item.name}, your strength is now {self.strength}")

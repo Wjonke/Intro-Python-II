@@ -1,7 +1,9 @@
-from room import Room
-from player import Player
+from src.room import Room
+from src.player import Player
+from src.item import Food, Egg, Sandwich, Rock
 
 # Declare all the rooms
+
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -49,12 +51,23 @@ room['treasure'].s_to = room['narrow']
 outside <----> Foyer <-----> Overlook(deadend)
 
 '''
+
+### ITEMS
+rock = Rock()
+sandwich = Sandwich()
+egg = Egg()
+bacon = Food("bacon", "This is wonderful", 200)
+
 #
 # Main
 #
 
 ## Make a new player object that is currently in the 'outside' room.
 player = Player(input("Please enter your name: "), room['outside'])
+player.items.append(rock)
+player.items.append(sandwich)
+player.items.append(egg)
+player.items.append(bacon)
 print(player.current_room)
 # Write a loop that:
 #REPL
@@ -67,13 +80,25 @@ print(player.current_room)
 #
 # If the user enters "q", quit the game.
 valid_directions = ("n", "s", "e", "w")
-
+valid_inventory = str(player.items)
+# print(valid_inventory)
 while True:
-    cmd = input("\nWhat direction will you go? ~~~> ")
+    cmd = input("\nWhat direction will you go? (Press (q) to quit, (i) for inventory, to eat an item, enter item name~~~>) ")
     if cmd == "q":
         print(f"Farewell {player.name}, come back soon!")
         exit(0)
     elif cmd in valid_directions:
         player.travel(cmd)
+    elif cmd == "i":
+        player.print_inventory()
+    elif cmd in valid_inventory:
+        found_item = False
+        for food in player.items:
+
+            if food.name == cmd :
+                player.eat(food)
+                valid_inventory = str(player.items)
+                found_item = True
+
     else:
-        print("Please enter a valid Direction Command")
+        print("Please enter a valid Command")
