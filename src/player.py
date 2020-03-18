@@ -27,3 +27,4 @@ class Player:
             self.strength += food_item.calories
             print(f"You have eaten {food_item.name}, your strength is now {self.strength}")
             self.items.remove(food_item)
+            
